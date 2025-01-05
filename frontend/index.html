@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Expense Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-wrapper">
+    <header class="app-header">
+      <h1>💸 Expense Tracker</h1>
+      <p class="subtitle">Track your spending, stay in control</p>
+    </header>
+
+    <div class="summary-bar">
+      <div class="summary-card">
+        <span class="summary-label">Total Spent</span>
+        <span class="summary-amount" id="totalAmount">$0.00</span>
+      </div>
+      <div class="summary-card">
+        <span class="summary-label">Expenses</span>
+        <span class="summary-amount" id="expenseCount">0</span>
+      </div>
+      <div class="summary-card">
+        <span class="summary-label">This Month</span>
+        <span class="summary-amount" id="monthlyAmount">$0.00</span>
+      </div>
+    </div>
+
+    <div class="main-content">
+      <div class="form-panel">
+        <h2>Add Expense</h2>
+        <form id="expenseForm" novalidate>
+          <div class="form-group">
+            <label for="title">Title</label>
+            <input
+              type="text"
+              id="title"
+              placeholder="e.g. Coffee, Rent, Netflix"
+              autocomplete="off"
+            />
+            <span class="field-error" id="titleError"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="amount">Amount ($)</label>
+            <input
+              type="number"
+              id="amount"
+              placeholder="0.00"
+              step="0.01"
+              min="0.01"
+            />
+            <span class="field-error" id="amountError"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="category">Category</label>
+            <select id="category">
+              <option value="">Select category</option>
+              <option value="Food">Food</option>
+              <option value="Transport">Transport</option>
+              <option value="Housing">Housing</option>
+              <option value="Entertainment">Entertainment</option>
+              <option value="Health">Health</option>
+              <option value="Shopping">Shopping</option>
+              <option value="Education">Education</option>
+              <option value="Other">Other</option>
+            </select>
+            <span class="field-error" id="categoryError"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="date">Date</label>
+            <input type="date" id="date" />
+            <span class="field-error" id="dateError"></span>
+          </div>
+
+          <button type="submit" class="btn-add" id="submitBtn">
+            <span id="btnText">Add Expense</span>
+          </button>
+
+          <div class="form-message" id="formMessage"></div>
+        </form>
+      </div>
+
+      <div class="table-panel">
+        <div class="table-controls">
+          <h2>All Expenses</h2>
+          <div class="filter-group">
+            <label for="filterCategory">Filter:</label>
+            <select id="filterCategory">
+              <option value="all">All Categories</option>
+              <option value="Food">Food</option>
+              <option value="Transport">Transport</option>
+              <option value="Housing">Housing</option>
+              <option value="Entertainment">Entertainment</option>
+              <option value="Health">Health</option>
+              <option value="Shopping">Shopping</option>
+              <option value="Education">Education</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <table id="expensesTable">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="expensesBody">
+            </tbody>
+          </table>
+          <div class="empty-state" id="emptyState">
+            <p>No expenses yet. Add your first expense!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
