@@ -9,6 +9,8 @@ CORS(app)
 
 DATA_FILE = os.path.join(os.path.dirname(__file__), 'expenses.json')
 
+VALID_CATEGORIES = ['Food', 'Transport', 'Housing', 'Entertainment', 'Health', 'Shopping', 'Education', 'Other']
+
 
 def read_expenses():
     if not os.path.exists(DATA_FILE):
@@ -48,6 +50,9 @@ def add_expense():
     if not title or amount is None or not category or not date:
         return jsonify({'error': 'All fields are required'}), 400
 
+    if category not in VALID_CATEGORIES:
+        return jsonify({'error': 'Invalid category'}), 400
+
     try:
         amount = float(amount)
         if amount <= 0:
@@ -58,7 +63,7 @@ def add_expense():
     expense = {
         'id': str(uuid.uuid4()),
         'title': title,
-        'amount': amount,
+        'amount': round(amount, 2),
         'category': category,
         'date': date
     }
@@ -90,7 +95,7 @@ def get_summary():
     for e in expenses:
         cat = e.get('category', 'Other')
         by_category[cat] = by_category.get(cat, 0) + e.get('amount', 0)
-    return jsonify({'total': total, 'by_category': by_category})
+    return jsonify({'total': round(total, 2), 'by_category': by_category, 'count': len(expenses)})
 
 
 if __name__ == '__main__':
