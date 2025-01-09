@@ -60,12 +60,16 @@ def add_expense():
     except (TypeError, ValueError):
         return jsonify({'error': 'Invalid amount'}), 400
 
+    if len(title) > 100:
+        return jsonify({'error': 'Title too long (max 100 chars)'}), 400
+
     expense = {
         'id': str(uuid.uuid4()),
         'title': title,
         'amount': round(amount, 2),
         'category': category,
-        'date': date
+        'date': date,
+        'created_at': __import__('datetime').datetime.utcnow().isoformat()
     }
 
     expenses = read_expenses()
