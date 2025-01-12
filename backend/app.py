@@ -31,8 +31,16 @@ def write_expenses(expenses):
 def get_expenses():
     expenses = read_expenses()
     category = request.args.get('category')
+    sort_by = request.args.get('sort', 'date')
+
     if category and category != 'all':
         expenses = [e for e in expenses if e.get('category') == category]
+
+    if sort_by == 'amount':
+        expenses = sorted(expenses, key=lambda e: e.get('amount', 0), reverse=True)
+    else:
+        expenses = sorted(expenses, key=lambda e: e.get('date', ''), reverse=True)
+
     return jsonify(expenses)
 
 
