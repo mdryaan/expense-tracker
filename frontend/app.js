@@ -114,6 +114,9 @@ function validateForm(title, amount, category, date) {
   if (!title) {
     showFieldError('title', 'Title is required');
     valid = false;
+  } else if (title.length > 100) {
+    showFieldError('title', 'Title must be 100 characters or less');
+    valid = false;
   }
 
   if (!amount) {
@@ -121,6 +124,9 @@ function validateForm(title, amount, category, date) {
     valid = false;
   } else if (isNaN(parseFloat(amount)) || parseFloat(amount) <= 0) {
     showFieldError('amount', 'Enter a valid positive amount');
+    valid = false;
+  } else if (parseFloat(amount) > 1000000) {
+    showFieldError('amount', 'Amount seems too large');
     valid = false;
   }
 
