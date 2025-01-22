@@ -61,6 +61,10 @@ body {
   margin-bottom: 32px;
 }
 
+.total-card {
+  border-left: 3px solid var(--primary);
+}
+
 .summary-card {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -203,6 +207,14 @@ body {
 
 .form-message.error {
   color: var(--danger);
+}
+
+.api-status {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: 6px;
+  min-height: 16px;
 }
 
 .table-controls {
