@@ -16,6 +16,13 @@ function loadFromStorage() {
 
 function saveToStorage(expenses) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(expenses));
+  localStorage.setItem(STORAGE_KEY + '_updated', new Date().toISOString());
+}
+
+function getStorageAge() {
+  const ts = localStorage.getItem(STORAGE_KEY + '_updated');
+  if (!ts) return null;
+  return new Date() - new Date(ts);
 }
 
 function formatCurrency(amount) {
