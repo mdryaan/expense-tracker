@@ -307,10 +307,11 @@ tbody td {
 }
 
 .category-badge {
-  background: rgba(99, 102, 241, 0.15);
-  border: 1px solid rgba(99, 102, 241, 0.3);
+  --badge-color: #6366f1;
+  background: color-mix(in srgb, var(--badge-color) 15%, transparent);
+  border: 1px solid color-mix(in srgb, var(--badge-color) 35%, transparent);
   border-radius: 20px;
-  color: #a5b4fc;
+  color: color-mix(in srgb, var(--badge-color) 80%, white);
   font-size: 0.75rem;
   font-weight: 600;
   padding: 3px 10px;

@@ -62,6 +62,20 @@ function getFilteredExpenses() {
   return allExpenses.filter(e => e.category === activeFilter);
 }
 
+function getCategoryColor(category) {
+  const colors = {
+    Food: '#f59e0b',
+    Transport: '#3b82f6',
+    Housing: '#8b5cf6',
+    Entertainment: '#ec4899',
+    Health: '#10b981',
+    Shopping: '#f97316',
+    Education: '#06b6d4',
+    Other: '#6b7280'
+  };
+  return colors[category] || '#6b7280';
+}
+
 function renderTable(expenses) {
   const tbody = document.getElementById('expensesBody');
   const emptyState = document.getElementById('emptyState');
@@ -78,11 +92,12 @@ function renderTable(expenses) {
   const sorted = [...expenses].sort((a, b) => new Date(b.date) - new Date(a.date));
 
   sorted.forEach(expense => {
+    const color = getCategoryColor(expense.category);
     const tr = document.createElement('tr');
     tr.dataset.id = expense.id;
     tr.innerHTML = `
       <td>${escapeHtml(expense.title)}</td>
-      <td><span class="category-badge">${escapeHtml(expense.category)}</span></td>
+      <td><span class="category-badge" style="--badge-color:${color}">${escapeHtml(expense.category)}</span></td>
       <td>${formatDate(expense.date)}</td>
       <td class="amount-cell">${formatCurrency(expense.amount)}</td>
       <td><button class="btn-delete" onclick="deleteExpense('${expense.id}')">Delete</button></td>
