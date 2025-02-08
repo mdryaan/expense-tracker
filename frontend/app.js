@@ -203,6 +203,12 @@ async function addExpense(expense) {
 }
 
 async function deleteExpense(id) {
+  const row = document.querySelector(`tr[data-id="${id}"]`);
+  if (row) {
+    row.style.opacity = '0.5';
+    row.style.pointerEvents = 'none';
+  }
+
   try {
     await fetch(`${API_BASE}/expenses/${id}`, { method: 'DELETE' });
   } catch {
