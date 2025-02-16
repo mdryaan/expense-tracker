@@ -52,7 +52,11 @@ function updateSummary(expenses) {
   const total = expenses.reduce((sum, e) => sum + parseFloat(e.amount || 0), 0);
   const monthly = getCurrentMonthTotal(expenses);
 
-  document.getElementById('totalAmount').textContent = formatCurrency(total);
+  const totalEl = document.getElementById('totalAmount');
+  const prevTotal = parseFloat(totalEl.dataset.value || 0);
+
+  totalEl.dataset.value = total;
+  totalEl.textContent = formatCurrency(total);
   document.getElementById('expenseCount').textContent = expenses.length;
   document.getElementById('monthlyAmount').textContent = formatCurrency(monthly);
 }
