@@ -281,18 +281,7 @@ document.getElementById('expenseForm').addEventListener('submit', async function
 
 document.getElementById('filterCategory').addEventListener('change', function () {
   activeFilter = this.value;
-  const filtered = getFilteredExpenses();
-  renderTable(filtered);
-
-  const filterLabel = this.value === 'all' ? 'all expenses' : this.value + ' expenses';
-  const count = filtered.length;
-  if (this.value !== 'all') {
-    const filterTotal = filtered.reduce((sum, e) => sum + parseFloat(e.amount || 0), 0);
-    document.getElementById('totalAmount').textContent = formatCurrency(filterTotal);
-    document.getElementById('expenseCount').textContent = count;
-  } else {
-    updateSummary(allExpenses);
-  }
+  refreshUI();
 });
 
 document.getElementById('date').value = new Date().toISOString().split('T')[0];
