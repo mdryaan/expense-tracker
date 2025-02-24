@@ -223,6 +223,18 @@ async function deleteExpense(id) {
   refreshUI();
 }
 
+function showApiStatus(online) {
+  const el = document.getElementById('apiStatus');
+  if (!el) return;
+  if (online) {
+    el.textContent = '● API connected';
+    el.style.color = '#22c55e';
+  } else {
+    el.textContent = '● Offline mode (localStorage only)';
+    el.style.color = '#f59e0b';
+  }
+}
+
 async function syncWithBackend() {
   try {
     const response = await fetch(`${API_BASE}/expenses`);
@@ -230,19 +242,20 @@ async function syncWithBackend() {
     const serverExpenses = await response.json();
 
     const localExpenses = loadFromStorage();
-    const localOnlyIds = new Set(localExpenses.map(e => e.id).filter(id => id.startsWith('local_')));
 
     const merged = [...serverExpenses];
     localExpenses.forEach(le => {
-      if (le.id.startsWith('local_')) {
+      if (le.id && le.id.startsWith('local_')) {
         merged.push(le);
       }
     });
 
     allExpenses = merged;
     saveToStorage(allExpenses);
+    showApiStatus(true);
   } catch {
     allExpenses = loadFromStorage();
+    showApiStatus(false);
   }
 }
 
