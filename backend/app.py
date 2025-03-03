@@ -89,6 +89,9 @@ def add_expense():
 
 @app.route('/expenses/<expense_id>', methods=['DELETE'])
 def delete_expense(expense_id):
+    if not expense_id or len(expense_id) > 100:
+        return jsonify({'error': 'Invalid expense ID'}), 400
+
     expenses = read_expenses()
     updated = [e for e in expenses if e.get('id') != expense_id]
 
@@ -96,7 +99,7 @@ def delete_expense(expense_id):
         return jsonify({'error': 'Expense not found'}), 404
 
     write_expenses(updated)
-    return jsonify({'message': 'Deleted successfully'}), 200
+    return jsonify({'message': 'Deleted successfully', 'id': expense_id}), 200
 
 
 @app.route('/expenses/summary', methods=['GET'])
