@@ -14,17 +14,26 @@ VALID_CATEGORIES = ['Food', 'Transport', 'Housing', 'Entertainment', 'Health', '
 
 def read_expenses():
     if not os.path.exists(DATA_FILE):
+        write_expenses([])
         return []
-    with open(DATA_FILE, 'r') as f:
-        try:
-            return json.load(f)
-        except (json.JSONDecodeError, ValueError):
-            return []
+    try:
+        with open(DATA_FILE, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+            if not isinstance(data, list):
+                return []
+            return data
+    except (json.JSONDecodeError, ValueError, OSError):
+        return []
 
 
 def write_expenses(expenses):
-    with open(DATA_FILE, 'w') as f:
-        json.dump(expenses, f, indent=2)
+    try:
+        tmp = DATA_FILE + '.tmp'
+        with open(tmp, 'w', encoding='utf-8') as f:
+            json.dump(expenses, f, indent=2)
+        os.replace(tmp, DATA_FILE)
+    except OSError as e:
+        raise RuntimeError(f'Failed to write expenses: {e}')
 
 
 @app.route('/expenses', methods=['GET'])
