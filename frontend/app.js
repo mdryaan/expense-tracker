@@ -66,6 +66,13 @@ function getFilteredExpenses() {
   return allExpenses.filter(e => e.category === activeFilter);
 }
 
+function syncFilterDropdown() {
+  const dropdown = document.getElementById('filterCategory');
+  if (dropdown.value !== activeFilter) {
+    dropdown.value = activeFilter;
+  }
+}
+
 function getCategoryColor(category) {
   const colors = {
     Food: '#f59e0b',
@@ -117,6 +124,7 @@ function escapeHtml(str) {
 }
 
 function refreshUI() {
+  syncFilterDropdown();
   const filtered = getFilteredExpenses();
   renderTable(filtered);
   updateSummary(allExpenses);
