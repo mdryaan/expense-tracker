@@ -356,7 +356,11 @@ tbody td {
 
 @media (max-width: 600px) {
   .summary-bar {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .summary-bar .total-card {
+    grid-column: 1 / -1;
   }
 
   .app-header h1 {
@@ -376,5 +380,15 @@ tbody td {
   thead th {
     font-size: 0.72rem;
     padding: 10px 10px;
+  }
+
+  .table-controls {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .btn-delete {
+    font-size: 0.72rem;
+    padding: 4px 8px;
   }
 }
