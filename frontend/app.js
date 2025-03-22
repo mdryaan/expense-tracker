@@ -270,11 +270,20 @@ async function syncWithBackend() {
 document.getElementById('expenseForm').addEventListener('submit', async function (e) {
   e.preventDefault();
   clearFieldErrors();
+  setFormMessage('', '');
 
   const title = document.getElementById('title').value.trim();
   const amount = document.getElementById('amount').value.trim();
-  const category = document.getElementById('category').value;
-  const date = document.getElementById('date').value;
+  const category = document.getElementById('category').value.trim();
+  const date = document.getElementById('date').value.trim();
+
+  if (!title && !amount && !category && !date) {
+    setFormMessage('Please fill in all fields', 'error');
+    ['title', 'amount', 'category', 'date'].forEach(id => {
+      document.getElementById(id).classList.add('error');
+    });
+    return;
+  }
 
   if (!validateForm(title, amount, category, date)) return;
 
