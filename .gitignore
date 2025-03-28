@@ -1,7 +1,9 @@
 __pycache__/
 *.pyc
 *.pyo
+*.pyd
 .env
+.env.local
 venv/
 env/
 .venv/
@@ -16,3 +18,7 @@ node_modules/
 .vscode/
 *.swp
 *.swo
+.pytest_cache/
+htmlcov/
+.coverage
+expenses.json.tmp
