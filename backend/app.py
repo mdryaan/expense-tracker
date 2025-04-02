@@ -5,7 +5,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r'/*': {'origins': '*'}}, supports_credentials=False)
 
 DATA_FILE = os.path.join(os.path.dirname(__file__), 'expenses.json')
 
@@ -120,6 +120,14 @@ def get_summary():
         cat = e.get('category', 'Other')
         by_category[cat] = by_category.get(cat, 0) + e.get('amount', 0)
     return jsonify({'total': round(total, 2), 'by_category': by_category, 'count': len(expenses)})
+
+
+@app.after_request
+def add_cors_headers(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type,Authorization'
+    response.headers['Access-Control-Allow-Methods'] = 'GET,POST,DELETE,OPTIONS'
+    return response
 
 
 if __name__ == '__main__':
