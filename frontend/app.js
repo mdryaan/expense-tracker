@@ -299,11 +299,16 @@ document.getElementById('expenseForm').addEventListener('submit', async function
 
   if (result.success) {
     this.reset();
+
+    document.getElementById('category').value = '';
     document.getElementById('date').value = new Date().toISOString().split('T')[0];
+
+    clearFieldErrors();
+
     if (result.offline) {
       setFormMessage('Expense saved locally (API unavailable)', 'success');
     } else {
-      setFormMessage('Expense added!', 'success');
+      setFormMessage('Expense added successfully!', 'success');
     }
     refreshUI();
   }
