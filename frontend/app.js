@@ -203,11 +203,17 @@ async function addExpense(expense) {
     }
 
     const saved = await response.json();
-    allExpenses.push(saved);
+
+    const existingIdx = allExpenses.findIndex(e => e.id === saved.id);
+    if (existingIdx === -1) {
+      allExpenses.push(saved);
+    }
+
     saveToStorage(allExpenses);
     return { success: true };
   } catch (err) {
-    const local = { ...expense, id: 'local_' + Date.now() + '_' + Math.random().toString(36).slice(2) };
+    const localId = 'local_' + Date.now() + '_' + Math.random().toString(36).slice(2);
+    const local = { ...expense, id: localId };
     allExpenses.push(local);
     saveToStorage(allExpenses);
     return { success: true, offline: true };
