@@ -83,9 +83,29 @@ expense-tracker/
 | Method | Endpoint               | Description            |
 |--------|------------------------|------------------------|
 | GET    | `/expenses`            | Get all expenses       |
+| GET    | `/expenses?category=Food` | Filter by category  |
 | POST   | `/expenses`            | Add a new expense      |
 | DELETE | `/expenses/<id>`       | Delete an expense      |
 | GET    | `/expenses/summary`    | Get totals summary     |
+
+### POST /expenses — Request Body
+
+```json
+{
+  "title": "Coffee",
+  "amount": 4.50,
+  "category": "Food",
+  "date": "2025-04-21"
+}
+```
+
+### Categories
+
+`Food` · `Transport` · `Housing` · `Entertainment` · `Health` · `Shopping` · `Education` · `Other`
+
+## Offline Support
+
+The frontend works offline — expenses are saved to `localStorage` immediately. When the Flask backend is available, data is synced automatically on page load. Expenses added offline are stored with a local ID and persist across sessions.
 
 ## License
 
