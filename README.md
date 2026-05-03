@@ -21,8 +21,7 @@ A clean, modern expense tracking web application to help you monitor and manage 
 - Fully responsive mobile-friendly layout
 
 ## Screenshots
-
-> _Screenshots coming soon — run the app locally to see it in action._
+<img width="1862" height="1011" alt="Screenshot 2026-05-04 045715" src="https://github.com/user-attachments/assets/bd1c57c0-0f86-4876-9aff-0e5b7f1d8a34" />
 
 ## Tech Stack
 
